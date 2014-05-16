@@ -1,7 +1,7 @@
 module('main');
 
 test('Components are registered on an application', function() {
-  expect(1);
+  expect(3);
   var container = {
     registry: {},
     register: function(name, definition) {
@@ -11,6 +11,7 @@ test('Components are registered on an application', function() {
   var initializer = Ember.Application.initializers['ella-cube'];
   initializer.initialize(container);
   strictEqual(container.registry['component:ella-cube'], Emberella.Component.EllaCubeComponent);
-  // strictEqual(container.registry['component:ella-cube-face'], Emberella.Component.EllaCubeFaceComponent);
+  strictEqual(container.registry['component:ella-cube-face'], Emberella.Component.EllaCubeFaceComponent);
+  strictEqual(container.registry['component:ella-dice'], Emberella.Component.EllaDiceComponent);
 });
 

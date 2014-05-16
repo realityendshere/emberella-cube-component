@@ -12,7 +12,8 @@ App.injectTestHelpers();
 setResolver(Ember.DefaultResolver.extend({
   testSubjects: {
     'component:ella-cube': Emberella.Component.EllaCubeComponent,
-    'component:ella-cube-face': Emberella.Component.EllaCubeFaceComponent
+    'component:ella-cube-face': Emberella.Component.EllaCubeFaceComponent,
+    'component:ella-dice': Emberella.Component.EllaDiceComponent
   },
   resolve: function(fullName) {
     return this.testSubjects[fullName] || this._super.apply(this, arguments);
@@ -33,7 +34,12 @@ function buildComponent(test, props) {
   props = props || {};
   var component = test.subject(Ember.merge({
     template: function(){/*
-      <span>Click me</span>
+      {{ella-cube-face value='1'}}
+      {{ella-cube-face value='2'}}
+      {{ella-cube-face value='3'}}
+      {{ella-cube-face value='4'}}
+      {{ella-cube-face value='5'}}
+      {{ella-cube-face value='6'}}
     */}.compile()
   }, props));
   test.append();
