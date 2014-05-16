@@ -5,29 +5,42 @@
   </head>
   <body>
 
-  <style media="screen">
 
-    .example {
-      padding: 100px 50px;
-      float: left;
-    }
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/dice.css">
 
-    .example ella-cube-face {
-      font-size: 120px;
-      font-weight: bold;
-      color: white;
-      text-align: center;
-    }
-
-    .example.words ella-cube-face {
-      font-size: 84px;
-    }
-
-  </style>
 
   <script type="text/x-handlebars">
+    <nav>
+      <ul>
+        <li>{{#link-to 'cube.one'}}Basic{{/link-to}}</li>
+        <li>{{#link-to 'cube.two'}}Binding{{/link-to}}</li>
+        <li>{{#link-to 'cube.three'}}Custom Content{{/link-to}}</li>
+        <li>{{#link-to 'cube.four'}}Dice{{/link-to}}</li>
+      </ul>
+    </nav>
+
+    <div id="content">
+      {{outlet}}
+    </div>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="cube/one">
     <div class="example">
-      {{#ella-cube value=App.cube1}}
+      {{#ella-cube}}
+        {{ella-cube-face value='A'}}
+        {{ella-cube-face value='B'}}
+        {{ella-cube-face value='C'}}
+        {{ella-cube-face value='D'}}
+        {{ella-cube-face value='E'}}
+        {{ella-cube-face value='F'}}
+      {{/ella-cube}}
+    </div>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="cube/two">
+    <div class="example">
+      {{#ella-cube value=value}}
         {{ella-cube-face value='1'}}
         {{ella-cube-face value='2'}}
         {{ella-cube-face value='3'}}
@@ -36,9 +49,14 @@
         {{ella-cube-face value='6'}}
       {{/ella-cube}}
     </div>
+    <div class="example">
+      <p><strong>Value:</strong> {{input value=value}}</p>
+    </div>
+  </script>
 
+  <script type="text/x-handlebars" data-template-name="cube/three">
     <div class="example words">
-      {{#ella-cube value=App.cube2 size=300}}
+      {{#ella-cube value=value size=300}}
         {{#ella-cube-face value='1'}}One{{/ella-cube-face}}
         {{#ella-cube-face value='2'}}Two{{/ella-cube-face}}
         {{#ella-cube-face value='3'}}Three{{/ella-cube-face}}
@@ -47,23 +65,68 @@
         {{#ella-cube-face value='6'}}Six{{/ella-cube-face}}
       {{/ella-cube}}
     </div>
-
     <div class="example">
-      {{#ella-cube}}
-        {{#ella-cube-face}}A{{/ella-cube-face}}
-        {{#ella-cube-face}}B{{/ella-cube-face}}
-        {{#ella-cube-face}}C{{/ella-cube-face}}
-        {{#ella-cube-face}}D{{/ella-cube-face}}
-        {{#ella-cube-face}}E{{/ella-cube-face}}
-        {{#ella-cube-face}}F{{/ella-cube-face}}
-      {{/ella-cube}}
-    </div>
-
-    <div class="example">
-      <p><strong>Cube 1:</strong> {{input value=App.cube1}}</p>
-      <p><strong>Cube 2:</strong> {{input value=App.cube2}}</p>
+      <p><strong>Value:</strong> {{input value=value}}</p>
     </div>
   </script>
+
+  <script type="text/x-handlebars" data-template-name="cube/four">
+    <div class="dice-example">
+      {{app-dice classNames="example dice one" value=roll1 rolls=rolls size=150}}
+      {{app-dice classNames="example dice two" value=roll2 rolls=rolls size=150}}
+    </div>
+    <div class="example">
+      <p>Click the dice to roll em</p>
+      <p><strong>Current Value</strong>: {{value}}</p>
+
+      <ul>
+        {{#each result in results}}
+          {{#if result.roll}}
+            <li><strong>Roll {{result.roll}}</strong>: {{result.value}}</li>
+          {{/if}}
+        {{/each}}
+      </ul>
+    </div>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="components/app-dice">
+    {{#ella-dice value=value rolls=rolls size=size}}
+      {{#ella-cube-face value=1 classNames='one'}}
+        <div class="pip">&bull;</div>
+      {{/ella-cube-face}}
+      {{#ella-cube-face value=6 classNames='six'}}
+        <div class="pip">&bull;</div>
+        <div class="pip">&bull;</div>
+        <div class="pip">&bull;</div>
+        <div class="pip">&bull;</div>
+        <div class="pip">&bull;</div>
+        <div class="pip">&bull;</div>
+      {{/ella-cube-face}}
+      {{#ella-cube-face value=3 classNames="three"}}
+        <div class="pip">&bull;</div>
+        <div class="pip">&bull;</div>
+        <div class="pip">&bull;</div>
+      {{/ella-cube-face}}
+      {{#ella-cube-face value=4 classNames="four"}}
+        <div class="pip">&bull;</div>
+        <div class="pip">&bull;</div>
+        <div class="pip">&bull;</div>
+        <div class="pip">&bull;</div>
+      {{/ella-cube-face}}
+      {{#ella-cube-face value=5 classNames="five"}}
+        <div class="pip">&bull;</div>
+        <div class="pip">&bull;</div>
+        <div class="pip">&bull;</div>
+        <div class="pip">&bull;</div>
+        <div class="pip">&bull;</div>
+      {{/ella-cube-face}}
+      {{#ella-cube-face value=2 classNames="two"}}
+        <div class="pip">&bull;</div>
+        <div class="pip">&bull;</div>
+      {{/ella-cube-face}}
+    {{/ella-dice}}
+  </script>
+
   <script src="../bower_components/jquery/dist/jquery.js"></script>
   <script src="../bower_components/handlebars/handlebars.js"></script>
   <script src="../bower_components/ember/ember.js"></script>
@@ -75,8 +138,65 @@
   <script>
     App = Ember.Application.create();
 
-    Ember.set(App, 'cube1', '1')
-    Ember.set(App, 'cube2', '6')
+    App.ApplicationController = Ember.Controller.extend({});
+
+    App.CubeFourController = Ember.ObjectController.extend({
+      results: Ember.A(),
+
+      value: function() {
+        return parseInt(this.get('roll1'), 10) + parseInt(this.get('roll2'), 10)
+      }.property('roll1', 'roll2'),
+
+      valueDidChange: Ember.observer(function() {
+        Ember.run.debounce(this, this.addResult, 50);
+      }, 'value'),
+
+      addResult: function() {
+        this.get('results').unshiftObject({
+          roll: this.get('rolls'),
+          value: this.get('value')
+        });
+      }
+    });
+
+    App.Router.map(function() {
+      this.resource('index', {path: '/'});
+      this.resource('cube', function() {
+        this.route('one');
+        this.route('two');
+        this.route('three');
+        this.route('four');
+      });
+    });
+
+    App.ApplicationRoute = Ember.Route.extend({});
+
+    App.IndexRoute = Ember.Route.extend({
+      redirect: function() {
+        this.transitionTo('cube.one');
+      }
+    });
+
+    App.CubeRoute = Ember.Route.extend({});
+
+    App.CubeTwoRoute = Ember.Route.extend({
+      model: function() {
+        return {value: '1'}
+      }
+    });
+
+    App.CubeThreeRoute = Ember.Route.extend({
+      model: function() {
+        return {value: '6'}
+      }
+    });
+
+    App.CubeFourRoute = Ember.Route.extend({
+      model: function() {
+        return {roll1: 1, roll2: 1}
+      }
+    });
+
   </script>
   </body>
 </html>

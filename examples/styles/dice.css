@@ -1,0 +1,78 @@
+.dice-example {
+  width: 400px;
+  margin: auto;
+}
+
+.example.dice {
+  width: 200px;
+  float: left;
+}
+
+.example.dice.one ella-cube-face {
+  background-color: rgba(30, 101, 199, 0.8);
+}
+
+.example.dice.two ella-cube-face {
+  background-color: rgba(165, 0, 77, 0.8);
+}
+
+.example.dice ella-cube-face .pip {
+  position: absolute;
+  font-size: 88px;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+}
+
+.example.dice ella-cube-face.one .pip,
+.example.dice ella-cube-face.three .pip:nth-of-type(2),
+.example.dice ella-cube-face.five .pip:nth-of-type(5) {
+  top: 50%;
+  left: 50%;
+  margin-top: -30px;
+  margin-left: -30px;
+}
+
+.example.dice ella-cube-face.two .pip:nth-of-type(1),
+.example.dice ella-cube-face.three .pip:nth-of-type(1),
+.example.dice ella-cube-face.four .pip:nth-of-type(1),
+.example.dice ella-cube-face.five .pip:nth-of-type(1),
+.example.dice ella-cube-face.six .pip:nth-of-type(1) {
+  top: 6%;
+  left: 6%;
+}
+
+.example.dice ella-cube-face.two .pip:nth-of-type(2),
+.example.dice ella-cube-face.three .pip:nth-of-type(3),
+.example.dice ella-cube-face.four .pip:nth-of-type(3),
+.example.dice ella-cube-face.five .pip:nth-of-type(3),
+.example.dice ella-cube-face.six .pip:nth-of-type(2) {
+  bottom: 6%;
+  right: 6%;
+}
+
+.example.dice ella-cube-face.four .pip:nth-of-type(4),
+.example.dice ella-cube-face.five .pip:nth-of-type(4),
+.example.dice ella-cube-face.six .pip:nth-of-type(3) {
+  top: 6%;
+  right: 6%;
+}
+
+.example.dice ella-cube-face.four .pip:nth-of-type(2),
+.example.dice ella-cube-face.five .pip:nth-of-type(2),
+.example.dice ella-cube-face.six .pip:nth-of-type(4) {
+  bottom: 6%;
+  left: 6%;
+}
+
+.example.dice ella-cube-face.six .pip:nth-of-type(5) {
+  top: 50%;
+  left: 6%;
+  margin-top: -30px;
+}
+
+.example.dice ella-cube-face.six .pip:nth-of-type(6) {
+  top: 50%;
+  right: 6%;
+  margin-top: -30px;
+}
