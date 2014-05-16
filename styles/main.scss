@@ -1,4 +1,5 @@
 @import 'variables';
+@import 'animations';
 
 ella-cube {
   display: block;
@@ -37,6 +38,10 @@ ella-cube {
 
   &[data-show-face='5'] > ella-cube {
     transform: translateZ( -100px ) rotateX(90deg);
+  }
+
+  &.rolling > ella-cube {
+    animation: rolldice 500ms infinite
   }
 
   ella-cube-face {

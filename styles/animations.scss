@@ -1,0 +1,35 @@
+@keyframes rolldice {
+  0% {
+    transform: translateZ( -100px ) rotateX(45deg) rotateY(135deg);
+  }
+  10% {
+    transform: translateZ( -100px ) rotateX(90deg) rotateY(180deg);
+  }
+  20% {
+    transform: translateZ( -100px ) rotateX(120deg) rotateY(120deg);
+  }
+  30% {
+    transform: translateZ( -100px ) rotateX(73deg) rotateY(45deg);
+  }
+  40% {
+    transform: translateZ( -100px ) rotateX(101deg) rotateY(10deg);
+  }
+  50% {
+    transform: translateZ( -100px ) rotateX(164deg) rotateY(-32deg);
+  }
+  60% {
+    transform: translateZ( -100px ) rotateX(111deg) rotateY(-60deg);
+  }
+  70% {
+    transform: translateZ( -100px ) rotateX(60deg) rotateY(0deg);
+  }
+  80% {
+    transform: translateZ( -100px ) rotateX(30deg) rotateY(35deg);
+  }
+  90% {
+    transform: translateZ( -100px ) rotateX(-45deg) rotateY(95deg);
+  }
+  100% {
+    transform: translateZ( -100px ) rotateX(-75deg) rotateY(158deg);
+  }
+}

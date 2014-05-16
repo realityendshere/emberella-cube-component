@@ -2,16 +2,32 @@
 `import EllaCubeComponent from './ella-cube-component'`
 
 EllaDiceComponent =
+  classNameBindings: ['rolling']
+
   rolls: 0
 
+  rolling: false
+
+  onRoll: null
+
   random: ->
-    Math.floor(Math.random() * get(@, 'faces.length'))
+    @randomInt(0, get(@, 'faces.length') - 1)
+
+  randomInt: (min, max) ->
+    Math.floor(Math.random() * (max - min + 1)) + min
 
   defaultAction: ->
-    @incrementProperty('rolls')
+    @incrementProperty('rolls') unless get(@, 'rolling')
 
   rollsDidChange: observer(->
-    Ember.run.next => set(@, 'show', @random())
+    set(@, 'rolling', true)
+    wait = @randomInt(100, 500)
+
+    Ember.run.later(=>
+      set(@, 'rolling', false)
+      set(@, 'show', @random())
+      Ember.run.next => @sendAction('onRoll') if typeOf(get(@, 'onRoll')) is 'string'
+    , wait)
   , 'rolls')
 
 `export default EllaCubeComponent.extend(EllaDiceComponent)`
