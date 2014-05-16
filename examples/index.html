@@ -72,12 +72,14 @@
 
   <script type="text/x-handlebars" data-template-name="cube/four">
     <div class="dice-example">
-      {{app-dice classNames="example dice one" value=roll1 rolls=rolls size=150}}
-      {{app-dice classNames="example dice two" value=roll2 rolls=rolls size=150}}
+      {{app-dice classNames="example dice one" value=roll1 rolls=rolls size=150 rolling=die1state onRoll='captureResult'}}
+      {{app-dice classNames="example dice two" value=roll2 rolls=rolls size=150 rolling=die2state onRoll='captureResult'}}
     </div>
     <div class="example">
-      <p>Click the dice to roll em</p>
-      <p><strong>Current Value</strong>: {{value}}</p>
+      {{#unless rolling}}
+        <p>Click the dice to roll em</p>
+        <p>You rolled a <strong>{{value}}</strong></p>
+      {{/unless}}
 
       <ul>
         {{#each result in results}}
@@ -90,7 +92,7 @@
   </script>
 
   <script type="text/x-handlebars" data-template-name="components/app-dice">
-    {{#ella-dice value=value rolls=rolls size=size}}
+    {{#ella-dice value=value rolls=rolls size=size rolling=rolling onRoll=onRoll targetObject=targetObject}}
       {{#ella-cube-face value=1 classNames='one'}}
         <div class="pip">&bull;</div>
       {{/ella-cube-face}}
@@ -136,7 +138,7 @@
   <script src="http://localhost:7357/testem.js"></script>
 
   <script>
-    App = Ember.Application.create();
+    var App = Ember.Application.create();
 
     App.ApplicationController = Ember.Controller.extend({});
 
@@ -144,18 +146,31 @@
       results: Ember.A(),
 
       value: function() {
-        return parseInt(this.get('roll1'), 10) + parseInt(this.get('roll2'), 10)
-      }.property('roll1', 'roll2'),
+        return this.get('rolling') ? null : parseInt(this.get('roll1'), 10) + parseInt(this.get('roll2'), 10)
+      }.property('roll1', 'roll2', 'rolling'),
 
-      valueDidChange: Ember.observer(function() {
-        Ember.run.debounce(this, this.addResult, 50);
-      }, 'value'),
+      rolling: function() {
+        return !!(this.get('die1state') || this.get('die2state'));
+      }.property('die1state', 'die2state'),
 
       addResult: function() {
-        this.get('results').unshiftObject({
-          roll: this.get('rolls'),
-          value: this.get('value')
-        });
+        var roll = this.get('rolls'),
+            results = this.get('results');
+
+        if (roll > results.length) {
+          this.get('results').unshiftObject({
+            roll: this.get('rolls'),
+            value: this.get('value')
+          });
+        }
+      },
+
+      actions: {
+        captureResult: function() {
+          if (!this.get('rolling')) {
+            this.addResult();
+          }
+        }
       }
     });
 
