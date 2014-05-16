@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Emberella Cube Component</title>
+  </head>
+  <body>
+
+  <style media="screen">
+
+    .example {
+      padding: 100px 50px;
+      float: left;
+    }
+
+    .example ella-cube-face {
+      font-size: 120px;
+      font-weight: bold;
+      color: white;
+      text-align: center;
+    }
+
+    .example.words ella-cube-face {
+      font-size: 84px;
+    }
+
+  </style>
+
+  <script type="text/x-handlebars">
+    <div class="example">
+      {{#ella-cube value=App.cube1}}
+        {{ella-cube-face value='1'}}
+        {{ella-cube-face value='2'}}
+        {{ella-cube-face value='3'}}
+        {{ella-cube-face value='4'}}
+        {{ella-cube-face value='5'}}
+        {{ella-cube-face value='6'}}
+      {{/ella-cube}}
+    </div>
+
+    <div class="example words">
+      {{#ella-cube value=App.cube2 size=300}}
+        {{#ella-cube-face value='1'}}One{{/ella-cube-face}}
+        {{#ella-cube-face value='2'}}Two{{/ella-cube-face}}
+        {{#ella-cube-face value='3'}}Three{{/ella-cube-face}}
+        {{#ella-cube-face value='4'}}Four{{/ella-cube-face}}
+        {{#ella-cube-face value='5'}}Five{{/ella-cube-face}}
+        {{#ella-cube-face value='6'}}Six{{/ella-cube-face}}
+      {{/ella-cube}}
+    </div>
+
+    <div class="example">
+      {{#ella-cube}}
+        {{#ella-cube-face}}A{{/ella-cube-face}}
+        {{#ella-cube-face}}B{{/ella-cube-face}}
+        {{#ella-cube-face}}C{{/ella-cube-face}}
+        {{#ella-cube-face}}D{{/ella-cube-face}}
+        {{#ella-cube-face}}E{{/ella-cube-face}}
+        {{#ella-cube-face}}F{{/ella-cube-face}}
+      {{/ella-cube}}
+    </div>
+
+    <div class="example">
+      <p><strong>Cube 1:</strong> {{input value=App.cube1}}</p>
+      <p><strong>Cube 2:</strong> {{input value=App.cube2}}</p>
+    </div>
+  </script>
+  <script src="../bower_components/jquery/dist/jquery.js"></script>
+  <script src="../bower_components/handlebars/handlebars.js"></script>
+  <script src="../bower_components/ember/ember.js"></script>
+  <script src="../bower_components/ic-styled/main.js"></script>
+  <!--<script src="../dist/globals/main.js"></script>-->
+  <script src="../build/globals/main.js"></script>
+  <script src="http://localhost:7357/testem.js"></script>
+
+  <script>
+    App = Ember.Application.create();
+
+    Ember.set(App, 'cube1', '1')
+    Ember.set(App, 'cube2', '6')
+  </script>
+  </body>
+</html>
