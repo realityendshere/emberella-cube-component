@@ -15,6 +15,9 @@ EllaCubeComponent =
 
   defaultSize: 200
 
+  defaultAction: ->
+    set(@, 'show', 0) if @incrementProperty('show') >= get(@, 'faces.length')
+
   layout: Ember.Handlebars.compile '<ella-cube>{{yield}}</ella-cube>'
 
   show: 0
@@ -32,7 +35,7 @@ EllaCubeComponent =
   '-webkit-perspective': computed.readOnly 'perspective'
 
   click: (e) ->
-    set(@, 'show', 0) if @incrementProperty('show') >= get(@, 'faces.length')
+    if typeOf(get(@, 'action')) is 'string' then @sendAction() else @defaultAction()
 
   registerCubeFace: (childView) ->
     get(@, 'faces').pushObject(childView)
