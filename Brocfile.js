@@ -56,7 +56,7 @@ pkg = preprocess(pkg);
 
 var outputJs = plugins.broccoliDistEs6Module(pkg, {
   global: 'Emberella.Component',
-  packageName: 'ella-sample',
+  packageName: 'ella-cube',
   main: 'main',
   shim: {
     'ember': 'Ember'
