@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 What is the Emberella Component Blueprint?
 ==========================================
 
@@ -131,3 +132,9 @@ And all the folks who've built or contributed to the dependencies for this proje
 [es6-dist]: https://github.com/rpflorence/broccoli-dist-es6-module "broccoli-dist-es6-module"
 [joliss]: https://github.com/joliss "Jo Liss on GitHub"
 [rpflorence]: https://github.com/rpflorence "Ryan Florence on GitHub"
+=======
+emberella-cube-component
+========================
+
+Experimental Ember Component that displays a "3D" select menu with up to 6 visible options in the shape of a cube.
+>>>>>>> 91aa4d9a77d8781e6934fa3c349afa674eff7e44
