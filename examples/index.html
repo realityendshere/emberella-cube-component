@@ -27,7 +27,7 @@
 
   <script type="text/x-handlebars" data-template-name="cube/one">
     <div class="example">
-      {{#ella-cube}}
+      {{#ella-cube disabled=cubeDisabled}}
         {{ella-cube-face value='A'}}
         {{ella-cube-face value='B'}}
         {{ella-cube-face value='C'}}
@@ -35,6 +35,9 @@
         {{ella-cube-face value='E'}}
         {{ella-cube-face value='F'}}
       {{/ella-cube}}
+    </div>
+    <div class="example">
+      <p>{{input type="checkbox" checked=cubeDisabled}} <strong>Disable cube?</strong></p>
     </div>
   </script>
 
@@ -141,6 +144,10 @@
     var App = Ember.Application.create();
 
     App.ApplicationController = Ember.Controller.extend({});
+
+    App.CubeOneController = Ember.ObjectController.extend({
+      cubeDisabled: false
+    });
 
     App.CubeFourController = Ember.ObjectController.extend({
       results: Ember.A(),

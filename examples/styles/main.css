@@ -9,11 +9,13 @@ nav {
 
 nav ul {
   display: -webkit-flex;
+  display: flex;
 }
 
 nav ul > li {
   list-style: none;
   display: -webkit-box;
+  display: box;
   -webkit-flex: 1;
   flex: 1;
 }
