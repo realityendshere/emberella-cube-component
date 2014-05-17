@@ -1,4 +1,4 @@
-`import { Component, get, set, computed, observer, typeOf } from 'ember'`
+`import { Component, get, set, computed, observer, typeOf, isEmpty } from 'ember'`
 `import StyleBindingsMixin from '../mixins/style_bindings'`
 
 ###
@@ -24,6 +24,8 @@ EllaCubeComponent =
 
   faces: null
 
+  disabled: false
+
   'data-show-face': computed.alias 'show'
 
   size: computed.defaultTo 'defaultSize'
@@ -35,10 +37,13 @@ EllaCubeComponent =
   '-webkit-perspective': computed.readOnly 'perspective'
 
   click: (e) ->
+    return if get @, 'disabled'
     if typeOf(get(@, 'action')) is 'string' then @sendAction() else @defaultAction()
 
   registerCubeFace: (childView) ->
-    get(@, 'faces').pushObject(childView)
+    faces = get(@, 'faces')
+    set(@, 'value', get(childView, 'value')) if isEmpty(faces) and !get(@, 'value')?
+    faces.pushObject(childView)
 
   unregisterCubeFace: (childView) ->
     get(@, 'faces').removeObject(childView)

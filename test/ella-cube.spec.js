@@ -95,6 +95,25 @@ test('clicking component when on last face should show first face', function() {
   });
 });
 
+test('clicking component when it is disabled should do nothing', function() {
+  expect(5);
+  var component = buildComponent(this);
+
+  equal(component.get('disabled'), false);
+
+  ok(component.get('show') === 0);
+  equal(component.$().attr('data-show-face'), "0");
+
+  Ember.run(function() {component.set('disabled', true);});
+
+  click('#' + component.get('elementId'));
+
+  andThen(function() {
+    ok(component.get('show') === 0);
+    equal(component.$().attr('data-show-face'), "0");
+  });
+});
+
 test('component value should match currently showing face', function() {
   expect(3);
   var component = buildComponent(this);
@@ -110,4 +129,21 @@ test('component value should match currently showing face', function() {
   Ember.run(function() {component.set('show', 2);});
 
   equal(component.get('value'), 3);
+});
+
+test('component show should match currently set value', function() {
+  expect(3);
+  var component = buildComponent(this);
+
+  Ember.run(function() {component.set('value', '1');});
+
+  equal(component.get('show'), 0);
+
+  Ember.run(function() {component.set('value', '5');});
+
+  equal(component.get('show'), 4);
+
+  Ember.run(function() {component.set('value', '2');});
+
+  equal(component.get('show'), 1);
 });
