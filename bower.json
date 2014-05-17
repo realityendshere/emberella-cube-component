@@ -1,6 +1,6 @@
 {
-  "name": "emberella-component-blueprint",
-  "version": "0.0.0",
+  "name": "emberella-cube-component",
+  "version": "0.0.1",
   "license": "MIT",
   "ignore": [
     "bower_components",

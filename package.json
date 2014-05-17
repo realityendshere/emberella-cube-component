@@ -1,7 +1,8 @@
 {
-  "name": "emberella-component-blueprint",
-  "version": "0.0.0",
-  "description": "A starting point for creating new, more portable Emberella components.",
+  "name": "emberella-cube-component",
+  "version": "0.0.1",
+  "description": "Displays a '3D' select menu with up to 6 visible options in the
+shape of a cube.",
   "main": "Gruntfile.js",
   "scripts": {
     "test": "grunt test",
