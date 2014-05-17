@@ -1,8 +1,7 @@
 {
   "name": "emberella-cube-component",
   "version": "0.0.1",
-  "description": "Displays a '3D' select menu with up to 6 visible options in the
-shape of a cube.",
+  "description": "Displays a 3D select menu with up to 6 visible options in the shape of a cube.",
   "main": "Gruntfile.js",
   "scripts": {
     "test": "grunt test",
@@ -12,12 +11,12 @@ shape of a cube.",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git@github.com:realityendshere/emberella-component-blueprint.git"
+    "url": "git@github.com:realityendshere/emberella-cube-component.git"
   },
   "bugs": {
-    "url": "https://github.com/realityendshere/emberella-component-blueprint/issues"
+    "url": "https://github.com/realityendshere/emberella-cube-component/issues"
   },
-  "homepage": "https://github.com/realityendshere/emberella-component-blueprint",
+  "homepage": "https://github.com/realityendshere/emberella-cube-component",
   "keywords": [
     "emberella",
     "ember",
