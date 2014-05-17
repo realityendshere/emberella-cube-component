@@ -29,7 +29,7 @@ test('component should evenly distribute random numbers', function() {
       random;
 
   for(i = 0; i < times; ++i) {
-    random = component.random();
+    random = component.randomFace();
     results[random+'']++;
   }
 
