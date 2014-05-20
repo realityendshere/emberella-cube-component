@@ -289,6 +289,7 @@ var Component = window.Ember.Component;
 var get = window.Ember.get;
 var set = window.Ember.set;
 var computed = window.Ember.computed;
+var typeOf = window.Ember.typeOf;
 var StyleBindingsMixin = _dereq_("../mixins/style_bindings")["default"] || _dereq_("../mixins/style_bindings");
 
 /*
@@ -324,6 +325,8 @@ CUBE_FACE_LAYOUT = Ember.Handlebars.compile('<div> {{#if template}} {{yield}} {{
       {{#ella-cube-face value='5'}}Five{{/ella-cube-face}}
       {{#ella-cube-face value='6'}}Six{{/ella-cube-face}}
     {{/ella-cube}}
+
+  TODO: Do not render if parent view is invalid
 
   @class EllaCubeFaceComponent
   @namespace Emberella
@@ -426,7 +429,8 @@ EllaCubeFaceComponent = {
     @type Integer
    */
   faceIndex: computed(function() {
-    return get(this, 'faces').indexOf(this);
+    var _ref;
+    return (_ref = get(this, 'faces')) != null ? _ref.indexOf(this) : void 0;
   }).property('faces', 'faces.[]', 'faces.@each.value'),
 
   /*
@@ -482,12 +486,27 @@ EllaCubeFaceComponent = {
   }).property('faceIndex', 'size'),
 
   /*
+    isValidParentView determines if the parentView is a valid container for
+    cube face components.
+  
+    @property isValidParentView
+    @type Boolean
+   */
+  isValidParentView: computed(function() {
+    return !!(typeOf(get(this, 'parentView.registerCubeFace')) === 'function' && typeOf(get(this, 'parentView.unregisterCubeFace')) === 'function');
+  }).property('parentView.registerCubeFace', 'parentView.unregisterCubeFace').readOnly(),
+
+  /*
     Register this cube face instance with its parent view.
   
     @method registerWithParent
    */
   registerWithParent: Ember.on('didInsertElement', function() {
-    return get(this, 'parentView').registerCubeFace(this);
+    var registerCubeFace;
+    registerCubeFace = get(this, 'parentView.registerCubeFace');
+    if (typeOf(registerCubeFace) === 'function') {
+      return registerCubeFace.call(get(this, 'parentView'), this);
+    }
   }),
 
   /*
@@ -496,7 +515,11 @@ EllaCubeFaceComponent = {
     @method unregisterWithParent
    */
   unregisterWithParent: Ember.on('willDestroyElement', function() {
-    return get(this, 'parentView').unregisterCubeFace(this);
+    var unregisterCubeFace;
+    unregisterCubeFace = get(this, 'parentView.unregisterCubeFace');
+    if (typeOf(unregisterCubeFace) === 'function') {
+      return unregisterCubeFace.call(get(this, 'parentView'), this);
+    }
   })
 };
 
