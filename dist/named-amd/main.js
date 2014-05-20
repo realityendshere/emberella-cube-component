@@ -170,7 +170,7 @@ define("ella-cube/components/ella-cube-component",
       
         @property data-show-face
        */
-      'data-show-face': computed.alias('show'),
+      'data-show-face': computed.readOnly('show'),
 
       /*
         @private
@@ -331,8 +331,6 @@ define("ella-cube/components/ella-cube-face-component",
           {{#ella-cube-face value='6'}}Six{{/ella-cube-face}}
         {{/ella-cube}}
 
-      TODO: Do not render if parent view is invalid
-
       @class EllaCubeFaceComponent
       @namespace Emberella
       @extends Ember.Component
@@ -367,7 +365,7 @@ define("ella-cube/components/ella-cube-face-component",
         @type Array
         @default ['-webkit-transform', 'transform']
        */
-      styleBindings: ['-webkit-transform', 'transform'],
+      styleBindings: ['-webkit-transform', 'transform', 'display'],
 
       /*
         The ARIA role for this component.
@@ -479,6 +477,20 @@ define("ella-cube/components/ella-cube-face-component",
       }).property('selected').readOnly(),
 
       /*
+        Computed "display" style.
+      
+        @property display
+        @type String
+       */
+      display: computed(function() {
+        if (get(this, 'isValidParentView')) {
+          return null;
+        } else {
+          return 'none !important';
+        }
+      }).property('isValidParentView').readOnly(),
+
+      /*
         Computed "rotation" style.
       
         @property rotation
@@ -499,7 +511,7 @@ define("ella-cube/components/ella-cube-face-component",
        */
       isValidParentView: computed(function() {
         return !!(typeOf(get(this, 'parentView.registerCubeFace')) === 'function' && typeOf(get(this, 'parentView.unregisterCubeFace')) === 'function');
-      }).property('parentView.registerCubeFace', 'parentView.unregisterCubeFace').readOnly(),
+      }).property('parentView', 'parentView.registerCubeFace', 'parentView.unregisterCubeFace').readOnly(),
 
       /*
         Register this cube face instance with its parent view.
