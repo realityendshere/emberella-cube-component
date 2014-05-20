@@ -42,8 +42,6 @@ CUBE_FACE_LAYOUT = Ember.Handlebars.compile '
       {{#ella-cube-face value='6'}}Six{{/ella-cube-face}}
     {{/ella-cube}}
 
-  TODO: Do not render if parent view is invalid
-
   @class EllaCubeFaceComponent
   @namespace Emberella
   @extends Ember.Component
@@ -76,7 +74,7 @@ EllaCubeFaceComponent =
     @type Array
     @default ['-webkit-transform', 'transform']
   ###
-  styleBindings: ['-webkit-transform', 'transform']
+  styleBindings: ['-webkit-transform', 'transform', 'display']
 
   ###
     The ARIA role for this component.
@@ -185,6 +183,16 @@ EllaCubeFaceComponent =
   ).property('selected').readOnly()
 
   ###
+    Computed "display" style.
+
+    @property display
+    @type String
+  ###
+  display: computed(->
+    if get(@, 'isValidParentView') then null else 'none !important'
+  ).property('isValidParentView').readOnly()
+
+  ###
     Computed "rotation" style.
 
     @property rotation
@@ -211,7 +219,7 @@ EllaCubeFaceComponent =
   ###
   isValidParentView: computed(->
     !!(typeOf(get(@, 'parentView.registerCubeFace')) is 'function' and typeOf(get(@, 'parentView.unregisterCubeFace')) is 'function')
-  ).property('parentView.registerCubeFace', 'parentView.unregisterCubeFace').readOnly()
+  ).property('parentView', 'parentView.registerCubeFace', 'parentView.unregisterCubeFace').readOnly()
 
   ###
     Register this cube face instance with its parent view.
