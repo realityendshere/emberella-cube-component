@@ -152,7 +152,7 @@ EllaCubeComponent =
 
     @property data-show-face
   ###
-  'data-show-face': computed.alias 'show'
+  'data-show-face': computed.readOnly 'show'
 
   ###
     @private
