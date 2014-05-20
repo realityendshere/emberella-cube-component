@@ -1,4 +1,4 @@
-`import { Component, get, set, computed } from 'ember'`
+`import { Component, get, set, computed, typeOf } from 'ember'`
 `import StyleBindingsMixin from '../mixins/style_bindings'`
 
 ###
@@ -41,6 +41,8 @@ CUBE_FACE_LAYOUT = Ember.Handlebars.compile '
       {{#ella-cube-face value='5'}}Five{{/ella-cube-face}}
       {{#ella-cube-face value='6'}}Six{{/ella-cube-face}}
     {{/ella-cube}}
+
+  TODO: Do not render if parent view is invalid
 
   @class EllaCubeFaceComponent
   @namespace Emberella
@@ -139,7 +141,7 @@ EllaCubeFaceComponent =
     @type Integer
   ###
   faceIndex: computed(->
-    get(@, 'faces').indexOf @
+    get(@, 'faces')?.indexOf @
   ).property('faces', 'faces.[]', 'faces.@each.value')
 
   ###
@@ -201,12 +203,24 @@ EllaCubeFaceComponent =
   ).property('faceIndex', 'size')
 
   ###
+    isValidParentView determines if the parentView is a valid container for
+    cube face components.
+
+    @property isValidParentView
+    @type Boolean
+  ###
+  isValidParentView: computed(->
+    !!(typeOf(get(@, 'parentView.registerCubeFace')) is 'function' and typeOf(get(@, 'parentView.unregisterCubeFace')) is 'function')
+  ).property('parentView.registerCubeFace', 'parentView.unregisterCubeFace').readOnly()
+
+  ###
     Register this cube face instance with its parent view.
 
     @method registerWithParent
   ###
   registerWithParent: Ember.on 'didInsertElement', ->
-    get(@, 'parentView').registerCubeFace @
+    registerCubeFace = get @, 'parentView.registerCubeFace'
+    registerCubeFace.call(get(@, 'parentView'), @) if typeOf(registerCubeFace) is 'function'
 
   ###
     Unregister this cube face instance from its parent view.
@@ -214,6 +228,7 @@ EllaCubeFaceComponent =
     @method unregisterWithParent
   ###
   unregisterWithParent: Ember.on 'willDestroyElement', ->
-    get(@, 'parentView').unregisterCubeFace @
+    unregisterCubeFace = get @, 'parentView.unregisterCubeFace'
+    unregisterCubeFace.call(get(@, 'parentView'), @) if typeOf(unregisterCubeFace) is 'function'
 
 `export default Component.extend(StyleBindingsMixin, EllaCubeFaceComponent)`
