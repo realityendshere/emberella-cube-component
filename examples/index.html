@@ -15,8 +15,9 @@
       <ul>
         <li>{{#link-to 'cube.one'}}Basic{{/link-to}}</li>
         <li>{{#link-to 'cube.two'}}Binding{{/link-to}}</li>
-        <li>{{#link-to 'cube.three'}}Custom Content{{/link-to}}</li>
-        <li>{{#link-to 'cube.four'}}Dice{{/link-to}}</li>
+        <li>{{#link-to 'cube.three'}}Words{{/link-to}}</li>
+        <li>{{#link-to 'cube.four'}}Pictures{{/link-to}}</li>
+        <li>{{#link-to 'cube.five'}}Fun?{{/link-to}}</li>
       </ul>
     </nav>
 
@@ -74,6 +75,34 @@
   </script>
 
   <script type="text/x-handlebars" data-template-name="cube/four">
+    <div class="example pictures">
+      {{#ella-cube value=value size=300}}
+        {{#ella-cube-face value='Ember'}}
+          <img src="images/tomster-wave-v2.gif"/>
+        {{/ella-cube-face}}
+        {{#ella-cube-face value='Broccoli'}}
+          <img src="images/broccoli-logo-small.generated.png"/>
+        {{/ella-cube-face}}
+        {{#ella-cube-face value='Grunt'}}
+          <img src="images/grunt.svg"/>
+        {{/ella-cube-face}}
+        {{#ella-cube-face value='Bower'}}
+          <img src="images/bower-logo.png"/>
+        {{/ella-cube-face}}
+        {{#ella-cube-face value='GitHub'}}
+          <img src="images/Octocat.png"/>
+        {{/ella-cube-face}}
+        {{#ella-cube-face value='Analog'}}
+          <img src="images/rubiks-cube.png"/>
+        {{/ella-cube-face}}
+      {{/ella-cube}}
+    </div>
+    <div style="text-align: center;">
+      <h1>My favorite technology is {{value}}</p>
+    </div>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="cube/five">
     <div class="dice-example">
       {{app-dice classNames="example dice one" value=roll1 rolls=rolls size=150 rolling=die1state onRoll='captureResult'}}
       {{app-dice classNames="example dice two" value=roll2 rolls=rolls size=150 rolling=die2state onRoll='captureResult'}}
@@ -137,8 +166,8 @@
   <script src="../bower_components/ember/ember.js"></script>
   <script src="../bower_components/ic-styled/main.js"></script>
   <!--<script src="../dist/globals/main.js"></script>-->
-  <script src="../build/globals/main.js"></script>
-  <script src="http://localhost:7357/testem.js"></script>
+  <script src="http://localhost:4200/globals/main.js"></script>
+  <script src="http://localhost:35729/livereload.js"></script>
 
   <script>
     var App = Ember.Application.create();
@@ -149,7 +178,7 @@
       cubeDisabled: false
     });
 
-    App.CubeFourController = Ember.ObjectController.extend({
+    App.CubeFiveController = Ember.ObjectController.extend({
       results: Ember.A(),
 
       value: function() {
@@ -188,6 +217,7 @@
         this.route('two');
         this.route('three');
         this.route('four');
+        this.route('five');
       });
     });
 
@@ -213,7 +243,7 @@
       }
     });
 
-    App.CubeFourRoute = Ember.Route.extend({
+    App.CubeFiveRoute = Ember.Route.extend({
       model: function() {
         return {roll1: 1, roll2: 1}
       }

@@ -44,3 +44,16 @@ nav ul > li {
 .example.words ella-cube-face {
   font-size: 84px;
 }
+
+.example.pictures {
+  width: 300px;
+}
+
+.example.pictures ella-cube-face {
+  background-color: white;
+}
+
+.example.pictures ella-cube-face img {
+  max-width: 240px;
+  max-height: 240px;
+}
