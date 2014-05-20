@@ -2,22 +2,22 @@
 <html>
   <head>
     <title>Emberella Cube Component</title>
+
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/dice.css">
   </head>
   <body>
 
-
-  <link rel="stylesheet" href="styles/main.css">
-  <link rel="stylesheet" href="styles/dice.css">
-
+  <!-- EMBER APP BELOW -->
 
   <script type="text/x-handlebars">
     <nav>
       <ul>
-        <li>{{#link-to 'cube.one'}}Basic{{/link-to}}</li>
-        <li>{{#link-to 'cube.two'}}Binding{{/link-to}}</li>
-        <li>{{#link-to 'cube.three'}}Words{{/link-to}}</li>
-        <li>{{#link-to 'cube.four'}}Pictures{{/link-to}}</li>
-        <li>{{#link-to 'cube.five'}}Fun?{{/link-to}}</li>
+        <li>{{#link-to 'cube.simple'}}Simple{{/link-to}}</li>
+        <li>{{#link-to 'cube.bound'}}Bound{{/link-to}}</li>
+        <li>{{#link-to 'cube.word'}}Words{{/link-to}}</li>
+        <li>{{#link-to 'cube.picture'}}Pictures{{/link-to}}</li>
+        <li>{{#link-to 'cube.fun'}}Fun?{{/link-to}}</li>
       </ul>
     </nav>
 
@@ -26,7 +26,7 @@
     </div>
   </script>
 
-  <script type="text/x-handlebars" data-template-name="cube/one">
+  <script type="text/x-handlebars" data-template-name="cube/simple">
     <div class="example">
       {{#ella-cube disabled=cubeDisabled}}
         {{ella-cube-face value='A'}}
@@ -42,7 +42,7 @@
     </div>
   </script>
 
-  <script type="text/x-handlebars" data-template-name="cube/two">
+  <script type="text/x-handlebars" data-template-name="cube/bound">
     <div class="example">
       {{#ella-cube value=value}}
         {{ella-cube-face value='1'}}
@@ -58,7 +58,7 @@
     </div>
   </script>
 
-  <script type="text/x-handlebars" data-template-name="cube/three">
+  <script type="text/x-handlebars" data-template-name="cube/word">
     <div class="example words">
       {{#ella-cube value=value size=300}}
         {{#ella-cube-face value='1'}}One{{/ella-cube-face}}
@@ -74,7 +74,7 @@
     </div>
   </script>
 
-  <script type="text/x-handlebars" data-template-name="cube/four">
+  <script type="text/x-handlebars" data-template-name="cube/picture">
     <div class="example pictures">
       {{#ella-cube value=value size=300}}
         {{#ella-cube-face value='Ember'}}
@@ -102,7 +102,7 @@
     </div>
   </script>
 
-  <script type="text/x-handlebars" data-template-name="cube/five">
+  <script type="text/x-handlebars" data-template-name="cube/fun">
     <div class="dice-example">
       {{app-dice classNames="example dice one" value=roll1 rolls=rolls size=150 rolling=die1state onRoll='captureResult'}}
       {{app-dice classNames="example dice two" value=roll2 rolls=rolls size=150 rolling=die2state onRoll='captureResult'}}
@@ -174,11 +174,11 @@
 
     App.ApplicationController = Ember.Controller.extend({});
 
-    App.CubeOneController = Ember.ObjectController.extend({
+    App.CubeSimpleController = Ember.ObjectController.extend({
       cubeDisabled: false
     });
 
-    App.CubeFiveController = Ember.ObjectController.extend({
+    App.CubeFunController = Ember.ObjectController.extend({
       results: Ember.A(),
 
       value: function() {
@@ -213,11 +213,11 @@
     App.Router.map(function() {
       this.resource('index', {path: '/'});
       this.resource('cube', function() {
-        this.route('one');
-        this.route('two');
-        this.route('three');
-        this.route('four');
-        this.route('five');
+        this.route('simple');
+        this.route('bound');
+        this.route('word');
+        this.route('picture');
+        this.route('fun');
       });
     });
 
@@ -225,25 +225,25 @@
 
     App.IndexRoute = Ember.Route.extend({
       redirect: function() {
-        this.transitionTo('cube.one');
+        this.transitionTo('cube.simple');
       }
     });
 
     App.CubeRoute = Ember.Route.extend({});
 
-    App.CubeTwoRoute = Ember.Route.extend({
+    App.CubeBoundRoute = Ember.Route.extend({
       model: function() {
         return {value: '1'}
       }
     });
 
-    App.CubeThreeRoute = Ember.Route.extend({
+    App.CubeWordRoute = Ember.Route.extend({
       model: function() {
         return {value: '6'}
       }
     });
 
-    App.CubeFiveRoute = Ember.Route.extend({
+    App.CubeFunRoute = Ember.Route.extend({
       model: function() {
         return {roll1: 1, roll2: 1}
       }

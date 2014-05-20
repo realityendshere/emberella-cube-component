@@ -20,6 +20,11 @@ nav ul > li {
   flex: 1;
 }
 
+nav ul > li a:visited,
+nav ul > li a:link {
+  color: aqua;
+}
+
 #content {
   padding-top: 100px;
 }
